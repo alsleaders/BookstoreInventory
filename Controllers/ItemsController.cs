@@ -10,7 +10,7 @@ namespace bookstoreinventory.Controllers
   [ApiController]
   public class ItemsController : ControllerBase
   {
-    // GET api/values
+    // GET api/all
     [HttpGet]
     public ActionResult<List<Model>> Get()
     {
@@ -19,6 +19,7 @@ namespace bookstoreinventory.Controllers
       return AllBooks.ToList();
     }
 
+    // POST api/all
     [HttpPost]
 
     public ActionResult<Model> Post([FromBody]Model somethingToRead)
@@ -28,5 +29,20 @@ namespace bookstoreinventory.Controllers
       db.SaveChanges();
       return somethingToRead;
     }
+
+    // Get api/individual
+    // [HttpGet("{Name}")]
+    // public async ActionResult<Model> Get(string Name)
+    // {
+    //   var db = new DatabaseContext();
+    //   return db.Books.Where(w => w.Name == Name).Select(s => new
+    //   {
+    //     s.Name,
+    //     s.NuminStock,
+    //     s.Price,
+    //     s.Description
+    //   }).ToList();
+
+    // }
   }
 }
