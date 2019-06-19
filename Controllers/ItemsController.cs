@@ -31,18 +31,33 @@ namespace bookstoreinventory.Controllers
     }
 
     // Get api/individual
-    // [HttpGet("{Name}")]
-    // public async ActionResult<Model> Get(string Name)
-    // {
-    //   var db = new DatabaseContext();
-    //   return db.Books.Where(w => w.Name == Name).Select(s => new
-    //   {
-    //     s.Name,
-    //     s.NuminStock,
-    //     s.Price,
-    //     s.Description
-    //   }).ToList();
+    [HttpGet("{Name}")]
+    public ActionResult<Model> GetOne(string Name)
+    {
+      var db = new DatabaseContext();
+      var where = db.Books.FirstOrDefault(w => w.Name == Name);
+      return where;
 
-    // }
+    }
+
+    // Put api/individual
+    // update name and/or price and/or sku and/or NuminStock and/or DateOrdered
+    [HttpPut("{Name}")]
+
+    public ActionResult<Model> UpdateOne(string Name, [FromBody]Model rhino)
+    {
+      var db = new DatabaseContext();
+      var hippo = db.Books.FirstOrDefault(f => f.Name == Name);
+      hippo.Name = rhino.Name;
+      hippo.Price = rhino.Price;
+      hippo.SKU = rhino.SKU;
+      hippo.Description = rhino.Description;
+      hippo.NuminStock = rhino.NuminStock;
+      hippo.DateOrdered = rhino.DateOrdered;
+      db.SaveChanges();
+      return hippo;
+
+
+    }
   }
 }
