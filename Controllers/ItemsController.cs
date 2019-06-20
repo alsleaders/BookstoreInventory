@@ -54,6 +54,8 @@ namespace bookstoreinventory.Controllers
       hippo.Description = rhino.Description;
       hippo.NuminStock = rhino.NuminStock;
       hippo.DateOrdered = rhino.DateOrdered;
+      hippo.Author = rhino.Author;
+      hippo.Completed = rhino.Completed;
       db.SaveChanges();
       return hippo;
     }
