@@ -56,8 +56,25 @@ namespace bookstoreinventory.Controllers
       hippo.DateOrdered = rhino.DateOrdered;
       db.SaveChanges();
       return hippo;
+    }
 
+    // Delete api/individual
+    [HttpDelete("{Name}")]
 
+    public ActionResult DeleteBook(string Name)
+    {
+      var db = new DatabaseContext();
+      var deletedBook = db.Books.FirstOrDefault(f => f.Name == Name);
+      if (deletedBook == null)
+      {
+        return NotFound();
+      }
+      else
+      {
+        db.Books.Remove(deletedBook);
+        db.SaveChanges();
+        return Ok();
+      }
     }
   }
 }
