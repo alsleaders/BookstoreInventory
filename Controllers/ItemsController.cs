@@ -59,12 +59,12 @@ namespace bookstoreinventory.Controllers
     }
 
     // Delete api/individual
-    [HttpDelete("{Name}")]
+    [HttpDelete("{id}")]
 
-    public ActionResult DeleteBook(string Name)
+    public ActionResult DeleteBook(int Id)
     {
       var db = new DatabaseContext();
-      var deletedBook = db.Books.FirstOrDefault(f => f.Name == Name);
+      var deletedBook = db.Books.FirstOrDefault(f => f.Id == Id);
       if (deletedBook == null)
       {
         return NotFound();
