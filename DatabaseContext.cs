@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using BookModel.Model;
+using BookstoreInventory.Model;
 
 namespace bookstoreinventory
 {
@@ -44,6 +45,6 @@ namespace bookstoreinventory
       modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
     }
     public DbSet<Model> Books { get; set; }
-    public DbSet<Model> Location { get; set; }
+    public DbSet<LocationModel> Location { get; set; }
   }
 }

@@ -10,8 +10,8 @@ using bookstoreinventory;
 namespace bookstoreinventory.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190618191430_AddedBookModelTable")]
-    partial class AddedBookModelTable
+    [Migration("20190621180234_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,10 @@ namespace bookstoreinventory.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<bool>("Completed");
 
                     b.Property<DateTime>("DateOrdered");
 
@@ -41,6 +45,22 @@ namespace bookstoreinventory.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookstoreInventory.Model.LocationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Manager");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Location");
                 });
 #pragma warning restore 612, 618
         }

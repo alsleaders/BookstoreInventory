@@ -32,6 +32,8 @@ namespace bookstoreinventory.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int?>("LocationId");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("NuminStock");
@@ -42,7 +44,32 @@ namespace bookstoreinventory.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Model");
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookstoreInventory.Model.LocationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Manager");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("BookModel.Model.Model", b =>
+                {
+                    b.HasOne("BookstoreInventory.Model.LocationModel", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
                 });
 #pragma warning restore 612, 618
         }
