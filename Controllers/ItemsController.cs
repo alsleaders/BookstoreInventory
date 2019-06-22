@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BookModel.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookstoreinventory.Controllers
 {
@@ -11,12 +12,21 @@ namespace bookstoreinventory.Controllers
   public class ItemsController : ControllerBase
   {
     // GET api/all
-    [HttpGet("{location}")]
-    public ActionResult<List<Model>> Get([FromRoute]string location)
+    [HttpGet]
+    public ActionResult<List<Model>> Get([FromQuery]int Id)
     {
       var db = new DatabaseContext();
-      var AllBooks = db.Books;
-      return AllBooks.ToList();
+      var place = db.Location.FirstOrDefault(f => f.Id == Id);
+      if (place == null)
+      {
+        return new List<Model>();
+      }
+      else
+      {
+        var AllBooks = db.Books.Where(w => w.Id == place.Id);
+        return AllBooks.ToList();
+
+      }
     }
 
     // POST api/all
