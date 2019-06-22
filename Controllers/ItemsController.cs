@@ -11,8 +11,8 @@ namespace bookstoreinventory.Controllers
   public class ItemsController : ControllerBase
   {
     // GET api/all
-    [HttpGet]
-    public ActionResult<List<Model>> Get()
+    [HttpGet("{location}")]
+    public ActionResult<List<Model>> Get([FromRoute]string location)
     {
       var db = new DatabaseContext();
       var AllBooks = db.Books;
