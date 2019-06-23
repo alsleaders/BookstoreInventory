@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BookModel.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,18 @@ namespace bookstoreinventory.Controllers
     // Get by SKU
     [HttpGet("{SKU}")]
 
-    public ActionResult<Model> GetSKU(string SKU, [FromQuery]int? LocationId)
+    public ActionResult<List<Model>> GetSKU(string SKU)
     {
       var db = new DatabaseContext();
-      var bookNumber = db.Books.FirstOrDefault(w => w.SKU == SKU);
-      return bookNumber;
+      if (SKU != null)
+      {
+        var bookNumber = db.Books.Where(w => w.SKU == SKU);
+        return bookNumber.ToList();
+      }
+      else
+      {
+        return NotFound();
+      }
     }
   }
 }
