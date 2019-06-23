@@ -11,7 +11,7 @@ namespace bookstoreinventory.Controllers
     // Get by SKU
     [HttpGet("{SKU}")]
 
-    public ActionResult<Model> GetSKU(string SKU)
+    public ActionResult<Model> GetSKU(string SKU, [FromQuery]int? LocationId)
     {
       var db = new DatabaseContext();
       var bookNumber = db.Books.FirstOrDefault(w => w.SKU == SKU);
