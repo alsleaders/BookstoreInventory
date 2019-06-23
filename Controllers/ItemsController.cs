@@ -13,20 +13,12 @@ namespace bookstoreinventory.Controllers
   {
     // GET api/all
     [HttpGet]
-    public ActionResult<List<Model>> Get([FromQuery]int Id)
+    public ActionResult<List<Model>> Get()
     {
       var db = new DatabaseContext();
-      var place = db.Location.FirstOrDefault(f => f.Id == Id);
-      if (place == null)
-      {
-        return new List<Model>();
-      }
-      else
-      {
-        var AllBooks = db.Books.Where(w => w.Id == place.Id);
-        return AllBooks.ToList();
+      var AllBooks = db.Books.Include(i => i.Location);
+      return AllBooks.ToList();
 
-      }
     }
 
     // POST api/all
@@ -45,7 +37,7 @@ namespace bookstoreinventory.Controllers
     public ActionResult<Model> GetOne(string Name)
     {
       var db = new DatabaseContext();
-      var where = db.Books.FirstOrDefault(w => w.Name == Name);
+      var where = db.Books.Include(i => i.Location).FirstOrDefault(w => w.Name == Name);
       return where;
 
     }
