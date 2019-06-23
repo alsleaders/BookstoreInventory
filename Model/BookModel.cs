@@ -14,7 +14,6 @@ namespace BookModel.Model
     public float Price { get; set; }
     public DateTime DateOrdered { get; set; } = DateTime.Now;
     public string Author { get; set; }
-
     public bool Completed { get; set; }
 
 

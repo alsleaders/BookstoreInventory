@@ -81,7 +81,9 @@ namespace bookstoreinventory.Controllers
     public ActionResult<Model> UpdateOne(string Name, [FromBody]Model rhino, [FromQuery]int? LocationId)
     {
       var db = new DatabaseContext();
-      var hippo = db.Books.Where(i => i.LocationId == LocationId.GetValueOrDefault()).FirstOrDefault(f => f.Name == Name);
+      var hippo = db.Books
+        .Where(i => i.LocationId == LocationId.GetValueOrDefault())
+        .FirstOrDefault(f => f.Name == Name);
       hippo.Name = rhino.Name;
       hippo.Price = rhino.Price;
       hippo.SKU = rhino.SKU;
