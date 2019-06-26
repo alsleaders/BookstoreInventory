@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookstoreInventory.Model
@@ -9,5 +10,6 @@ namespace BookstoreInventory.Model
     public string Address { get; set; }
     public string Manager { get; set; }
     public string PhoneNumber { get; set; }
+    public List<BookModel.Model.Model> Models { get; set; } = new List<BookModel.Model.Model>();
   }
 }

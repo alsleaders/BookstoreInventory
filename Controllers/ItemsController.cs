@@ -20,20 +20,13 @@ namespace bookstoreinventory.Controllers
       // make unauthorized if invalid location
       if (LocationId == null)
       {
-        return Unauthorized();
+        return NotFound();
       }
-      var place = db.Location.FirstOrDefault(f => f.Id == LocationId);
-      if (place == null)
-      {
-        return new List<Model>();
-      }
-      else
-      {
-        var AllBooks = db.Books.Where(i => i.LocationId == place.Id);
-        return AllBooks.ToList();
-      }
-
+      var AllBooks = db.Books.Include(i => i.Location).Where(i => i.LocationId == LocationId);
+      return AllBooks.ToList();
     }
+
+
 
     // POST api/all
     [HttpPost]
@@ -42,7 +35,7 @@ namespace bookstoreinventory.Controllers
     {
       if (LocationId == null)
       {
-        return Unauthorized();
+        return NotFound();
       }
       var db = new DatabaseContext();
       // does that location exist, if not make it
@@ -78,12 +71,12 @@ namespace bookstoreinventory.Controllers
     // update name and/or price and/or sku and/or NuminStock and/or DateOrdered
     [HttpPut("{Name}")]
 
-    public ActionResult<Model> UpdateOne(string Name, [FromBody]Model rhino, [FromQuery]int? LocationId)
+    public ActionResult<Model> UpdateOne(string Name, [FromBody]Model rhino, [FromQuery]int? locationId)
     {
       var db = new DatabaseContext();
       var hippo = db.Books
-        .Where(i => i.LocationId == LocationId.GetValueOrDefault())
         .FirstOrDefault(f => f.Name == Name);
+      hippo.LocationId = locationId;
       hippo.Name = rhino.Name;
       hippo.Price = rhino.Price;
       hippo.SKU = rhino.SKU;
